@@ -1,33 +1,35 @@
-import {Body, Controller, Get, Param, Post, Put, Res} from "@nestjs/common";
-import {Auto, AutoService} from "./auto.service";
+import {Body, Controller, Get, Param, Post, Put, Query, Res} from "@nestjs/common";
+import {AutoService} from "./auto.service";
 import {Auto_Editar_Schema, Auto_Guardar_Schema, Indice_Schema} from "./auto.schema";
 import {ValidaPipe} from "../pipes/valida.pipe";
 import {NoEncontradoException} from "../exceptions/no-encontrado.exception";
 import {tryCatch} from "rxjs/internal/util/tryCatch";
+import {ConductorService} from "../conductor/conductor.service";
 
 
 @Controller('Auto')
 export class AutoController {
-    constructor(private _autoService:AutoService){}
+    constructor(private _autoService:AutoService,
+                private  conductorService:ConductorService){}
 
-    @Get()
-    listarTodos():Auto[]{
+    @Get('listar')
+    listarTodos(){
         return this._autoService.listarAutos();
     }
 
-    @Post()
+    @Post('crear')
     crearAuto(@Body(new ValidaPipe(Auto_Guardar_Schema))bodyParams){
-        const auto= new Auto(bodyParams.chasis,
+
+        return this._autoService.agregarAuto(bodyParams.chasis,
             bodyParams.nombreMarca,
             bodyParams.colorUno,
             bodyParams.colorDos,
             bodyParams.nombreModelo,
             bodyParams.anio,
             bodyParams.idConductor);
-        return this._autoService.agregarAuto(auto);
     }
 
-    @Get('/:indice')
+    @Get('obtenerPorIdAuto/:indice')
     obtenerUno(@Param(new ValidaPipe(Indice_Schema))Params){
 
         if(this._autoService.obtenerAuto(Params.indice)){
@@ -39,16 +41,13 @@ export class AutoController {
                 4
             );
         }
-
     }
 
-    @Put('/:indice')
-    editarUno(@Param(new ValidaPipe(Indice_Schema))Params,
-              @Body(new ValidaPipe(Auto_Editar_Schema))bodyParams){
-        let  auto:Auto;
-
-        if(this._autoService.obtenerAuto(Params.indice)){
-            auto=this._autoService.obtenerAuto(Params.indice);
+    @Get('obtenerPorConductor')
+    async obtenerPorConductor(@Query('idConductor') idConductor){
+        const autos=await this.conductorService.obtenerAutos(idConductor);
+        if(autos){
+            return autos;
         }else{
             throw new NoEncontradoException(
                 "Auto no encontrado",
@@ -56,29 +55,10 @@ export class AutoController {
                 4
             );
         }
+    }
 
-        if(bodyParams.chasis){
-            auto.chasis=bodyParams.chasis;
-        }
-        if(bodyParams.nombreMarca){
-            auto.nombreMarca=bodyParams.nombreMarca;
-        }
-        if(bodyParams.colorUno){
-            auto.colorUno=bodyParams.colorUno;
-        }
-        if(bodyParams.colorDos){
-            auto.colorDos=bodyParams.colorDos;
-        }
-        if(bodyParams.nombreModelo){
-            auto.nombreModelo=bodyParams.nombreModelo;
-        }
-        if(bodyParams.anio){
-            auto.anio=bodyParams.anio;
-        }
-        if(bodyParams.idConductor){
-            auto.idConductor=bodyParams.idConductor;
-        }
-
-        return  this._autoService.editarAuto(Params.indice, auto);
+    @Get('buscar')
+    async buscarAuto(@Query('palabraBusqueda')palabraBusqueda){
+        return await this._autoService.buscarAutos(palabraBusqueda);
     }
 }

@@ -1,13 +1,18 @@
 import {Body, Controller, Post, Res} from "@nestjs/common";
+import {UsuarioService} from "../usuario/usuario.service";
 
 
 @Controller('Autorizacion')
 export class AutorizacionController {
 
+    constructor(private _usuarioService:UsuarioService){
+
+    }
+
     @Post('iniciarSesion')
-    iniciarSesion(@Body()bodyParamas,
+    async iniciarSesion(@Body()bodyParamas,
                   @Res()res){
-        if(bodyParamas.usuario=='adrianeguez'&&bodyParamas.password=='12345678910'){
+        if(await this._usuarioService.existeUsuario(bodyParamas.usuario,bodyParamas.password)){
             const mensaje={mensaje:'ok'};
             const parametros={nombre:'token',
                 valor:'adrianeguez'}
@@ -29,4 +34,6 @@ export class AutorizacionController {
         return res.send(mensaje);
 
     }
+
+
 }
