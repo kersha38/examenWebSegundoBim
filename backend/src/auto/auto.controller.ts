@@ -57,8 +57,8 @@ export class AutoController {
         }
     }
 
-    @Get('buscar')
-    async buscarAuto(@Query('palabraBusqueda')palabraBusqueda){
+    @Post('buscar')
+    async buscarAuto(@Body('palabraBusqueda')palabraBusqueda){
         return await this._autoService.buscarAutos(palabraBusqueda);
     }
 }

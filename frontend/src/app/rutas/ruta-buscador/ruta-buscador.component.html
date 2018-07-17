@@ -5,75 +5,100 @@
 <div class="row">
   <div class="col-sm-12">
     <nav class="navbar navbar-light bg-light">
-      <form class="form-check-inline" >
-        <input class="form-control mr-sm-3" type="search" placeholder="Search" size="100" aria-label="Search" >
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <form class="form-check-inline"
+            (ngSubmit)="buscarResultados(formularioBarra)"
+            #formularioBarra="ngForm">>
+        <input class="form-control mr-sm-3" type="search" placeholder="Search" size="100" aria-label="Search"
+               name="palabraBusqueda" [(ngModel)]="palabraBusqueda">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
       </form>
     </nav>
   </div>
 </div>
+<div *ngIf="indiceUsuarios!==0">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>Usuarios</h2>
+    </div>
 
-<div class="row">
-  <div class="col-sm-12">
-    <h2>Usuarios</h2>
+    <div class="col-sm-3"  *ngFor="let usuario of usuarios">
+      <app-usuario
+        [nick]="usuario.nick"></app-usuario>
+      <app-boton [nombreBoton]="botonUsuario"
+                 (darClick)="visitarPerfil(usuario.id,usuario.id)"></app-boton>
+    </div>
+
   </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-1">
+      <app-boton nombreBoton="Anteriores"></app-boton>
+    </div>
+    <div class="col-sm-10"></div>
+    <div class="col-sm-1">
+      <app-boton nombreBoton="Siguientes"></app-boton>
+    </div>
+  </div>
+</div>
+<div *ngIf="indiceConductores!==0">
+  <br><br><br>
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>Conductor</h2>
+    </div>
 
-  <div class="col-sm-3"  *ngFor="let usuario of usuarios">
-    <app-usuario></app-usuario>
-    <app-boton [nombreBoton]="botonUsuario"></app-boton>
+    <div class="col-sm-3"  *ngFor="let conductor of conductores">
+      <app-conductor
+        [nombre]="conductor.nombre+conductor.apellido"
+        [campeonActual]="conductor.campeonActual"
+        [numeroMedallas]="conductor.numeroMedallas"></app-conductor>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-1">
+      <app-boton nombreBoton="Anteriores"></app-boton>
+    </div>
+    <div class="col-sm-10"></div>
+    <div class="col-sm-1">
+      <app-boton nombreBoton="Siguientes"></app-boton>
+    </div>
   </div>
 
 </div>
-<br>
-<div class="row">
-  <div class="col-sm-1">
-    <app-boton nombreBoton="Anteriores"></app-boton>
+
+<div *ngIf="indiceAutos!==0">
+  <br><br><br>
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>Auto</h2>
+    </div>
+
+    <div class="col-sm-3"  *ngFor="let auto of autos">
+      <app-auto
+        [anio]="auto.anio"
+        [chasis]="auto.chasis"
+        [colorDos]="auto.colorDos"
+        [colorUno]="auto.colorUno"
+        [nombreMarca]="auto.nombreMarca"
+        [nombreModelo]="auto.nombreModelo"
+      ></app-auto>
+      <app-boton
+        [nombreBoton]="botonAuto"
+        (darClick)="solicitarAuto(auto.id,auto.id)">
+      </app-boton>
+    </div>
   </div>
-  <div class="col-sm-10"></div>
-  <div class="col-sm-1">
-    <app-boton nombreBoton="Siguientes"></app-boton>
-  </div>
-</div>
-<br><br><br>
-<div class="row">
-  <div class="col-sm-12">
-    <h2>Conductor</h2>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-sm-1">
+      <app-boton nombreBoton="Anteriores"></app-boton>
+    </div>
+    <div class="col-sm-10"></div>
+    <div class="col-sm-1">
+      <app-boton nombreBoton="Siguientes"></app-boton>
+    </div>
   </div>
 
-  <div class="col-sm-3"  *ngFor="let conductor of conductores">
-    <app-conductor></app-conductor>
-  </div>
-</div>
-<br>
-<div class="row">
-  <div class="col-sm-1">
-    <app-boton nombreBoton="Anteriores"></app-boton>
-  </div>
-  <div class="col-sm-10"></div>
-  <div class="col-sm-1">
-    <app-boton nombreBoton="Siguientes"></app-boton>
-  </div>
-</div>
-
-<br><br><br>
-<div class="row">
-  <div class="col-sm-12">
-    <h2>Auto</h2>
-  </div>
-
-  <div class="col-sm-3"  *ngFor="let auto of autos">
-    <app-auto></app-auto>
-    <app-boton [nombreBoton]="botonAuto"></app-boton>
-  </div>
-</div>
-<br>
-<br>
-<div class="row">
-  <div class="col-sm-1">
-    <app-boton nombreBoton="Anteriores"></app-boton>
-  </div>
-  <div class="col-sm-10"></div>
-  <div class="col-sm-1">
-    <app-boton nombreBoton="Siguientes"></app-boton>
-  </div>
 </div>

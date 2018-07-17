@@ -1,4 +1,4 @@
-import {Controller, Get, Query} from "@nestjs/common";
+import {Body, Controller, Get, Post, Query} from "@nestjs/common";
 import {PeticionService} from "./peticion.service";
 
 @Controller('Peticion')
@@ -26,8 +26,8 @@ export class PeticionesController {
         return await this.peticionService.crearPeticion(idAutoOfrecido,idAutoSolicitado,idPoseedor,idOfrece);
     }
 
-    @Get('obtener')
-    async obtener(@Query('identificador')identificador){
+    @Post('obtener')
+    async obtener(@Body('identificador')identificador){
         return await this.peticionService.obtener(identificador);
     }
 }

@@ -26,7 +26,7 @@ export class PeticionService {
     }
     async obtener(idPeticion){
         return await this.peticionRepository.findOne(idPeticion,
-            {relations:["autoSolicitado","autoOfrecido"]});
+            {relations:["autoSolicitado","autoOfrecido","usuarioOfrece","usuarioSolicita"]});
     }
 
     async aceptarPeticion(idPeticion){

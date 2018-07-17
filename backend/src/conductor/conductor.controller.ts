@@ -18,8 +18,8 @@ export class ConductorController {
         return await this._conductorService.mostrarConductores()
     }
 
-    @Get('buscar')
-    async listarTodosBuscados(@Query('palabraBusqueda') palabraBusqueda){
+    @Post('buscar')
+    async listarTodosBuscados(@Body('palabraBusqueda') palabraBusqueda){
         return await this._conductorService.mostrarConductoresBuscados(palabraBusqueda);
     }
 

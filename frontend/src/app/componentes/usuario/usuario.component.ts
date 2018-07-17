@@ -16,19 +16,7 @@ export class UsuarioComponent implements OnInit {
   @Input()
   urlImagen:string="/assets/imagenes/1.png";
 
-  @Input()
-  identificador:number;
-
   ngOnInit() {
-  }
-
-  visitarPerfil(identificador){
-    const url = [
-      '/busqueda'
-    ];
-    this._router.navigate(url);
-
-    console.log("navegamos");
   }
 
 }
