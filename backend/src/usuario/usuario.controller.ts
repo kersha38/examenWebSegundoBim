@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post, Query} from "@nestjs/common";
+import {Body,  Controller, Get, Post, Query} from "@nestjs/common";
 import {UsuarioService} from "./usuario.service";
 
 @Controller('Usuario')
@@ -31,5 +31,10 @@ export class UsuarioController {
     @Get('ofrecimientos')
     async ofrecmientos(@Query('identificador')identificador){
         return await  this.usuarioService.obtenerOfrecimientos(identificador)
+    }
+
+    @Post('obtener')
+    async obtener(@Body('idUsuario')idUsuario){
+        return await  this.usuarioService.obtenerUsuario(idUsuario);
     }
 }

@@ -12,10 +12,11 @@ export class AutorizacionController {
     @Post('iniciarSesion')
     async iniciarSesion(@Body()bodyParamas,
                   @Res()res){
-        if(await this._usuarioService.existeUsuario(bodyParamas.usuario,bodyParamas.password)){
-            const mensaje={mensaje:'ok'};
+        const usuarioID:any=await this._usuarioService.existeUsuario(bodyParamas.usuario,bodyParamas.password);
+        if(usuarioID){
+            const mensaje={idUsuario:usuarioID};
             const parametros={nombre:'token',
-                valor:'adrianeguez'}
+                valor:bodyParamas.usuario}
 
             res.cookie(parametros.nombre,parametros.valor);
             return res.send(mensaje);

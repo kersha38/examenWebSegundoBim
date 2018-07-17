@@ -25,9 +25,12 @@ export class UsuarioService {
         console.log(usuario)
 
         if(usuario)
-            return true;
+            return usuario.id;
         else
             return false;
+    }
+    async obtenerUsuario(idUsuario){
+        return await this.usuarioRepository.findOne(idUsuario);
     }
 
     crearUsuario(usuarionick, password){
