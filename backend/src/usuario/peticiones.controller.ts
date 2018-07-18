@@ -7,22 +7,22 @@ export class PeticionesController {
     constructor(private peticionService:PeticionService){
     }
 
-    @Get('aceptar')
-    async aceptarPeticion(@Query('identificador')identificador){
+    @Post('aceptar')
+    async aceptarPeticion(@Body('identificador')identificador){
         return await this.peticionService.aceptarPeticion(identificador);
     }
 
-    @Get('rechazar')
-    async rechazarPeticion(@Query('identificador')identificador){
+    @Post('rechazar')
+    async rechazarPeticion(@Body('identificador')identificador){
          return await this.peticionService.rechazarPeticion(identificador);
 
     }
 
-    @Get('crear')
-    async crear(@Query('idAutoOfrecido')idAutoOfrecido,
-          @Query('idAutoSolicitado')idAutoSolicitado,
-          @Query('idPoseedor')idPoseedor,
-          @Query('idOfrece')idOfrece,){
+    @Post('crear')
+    async crear(@Body('idAutoOfrecido')idAutoOfrecido,
+          @Body('idAutoSolicitado')idAutoSolicitado,
+          @Body('idPoseedor')idPoseedor,
+          @Body('idOfrece')idOfrece,){
         return await this.peticionService.crearPeticion(idAutoOfrecido,idAutoSolicitado,idPoseedor,idOfrece);
     }
 

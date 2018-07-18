@@ -20,7 +20,7 @@ export class RutaHomeComponent implements OnInit {
   nombreUsuario="asadas";
 
   verPerfil(id){
-    const url=['home',this.idUsuario,'perfil'];
+    const url=['home',this.idUsuario,'perfil',this.idUsuario];
     this._router.navigate(url);
   }
 

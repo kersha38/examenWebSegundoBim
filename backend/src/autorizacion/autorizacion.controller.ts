@@ -1,4 +1,4 @@
-import {Body, Controller, Post, Res} from "@nestjs/common";
+import {Body, Controller, Get, Post, Req, Res} from "@nestjs/common";
 import {UsuarioService} from "../usuario/usuario.service";
 
 
@@ -11,12 +11,12 @@ export class AutorizacionController {
 
     @Post('iniciarSesion')
     async iniciarSesion(@Body()bodyParamas,
-                  @Res()res){
+                        @Res()res){
         const usuarioID:any=await this._usuarioService.existeUsuario(bodyParamas.usuario,bodyParamas.password);
         if(usuarioID){
             const mensaje={idUsuario:usuarioID};
-            const parametros={nombre:'token',
-                valor:bodyParamas.usuario}
+            const parametros={nombre:'cookieID',
+                valor:usuarioID}
 
             res.cookie(parametros.nombre,parametros.valor);
             return res.send(mensaje);
@@ -28,7 +28,7 @@ export class AutorizacionController {
     @Post('cerrarSesion')
     cerrarSesion(@Res()res){
         const mensaje={mensaje:'Usted salio del sistema'};
-        const parametros={nombre:'token',
+        const parametros={nombre:'cookieID',
             valor:undefined}
 
         res.cookie(parametros.nombre,parametros.valor);
@@ -36,5 +36,10 @@ export class AutorizacionController {
 
     }
 
-
+    @Get('obtenerID')
+    obtenerID(@Req() req){
+        const idCookie=req.cookie['cookieID'];
+        console.log("idCookie",idCookie);
+        return {identificador:idCookie};
+    }
 }

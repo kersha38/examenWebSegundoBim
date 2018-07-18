@@ -15,7 +15,7 @@
     </nav>
   </div>
 </div>
-<div *ngIf="indiceUsuarios!==0">
+<div *ngIf="indiceUsuarios!==0" class="b-b">
   <div class="row">
     <div class="col-sm-12">
       <h2>Usuarios</h2>
@@ -39,15 +39,16 @@
       <app-boton nombreBoton="Siguientes"></app-boton>
     </div>
   </div>
+  <br>
 </div>
-<div *ngIf="indiceConductores!==0">
-  <br><br><br>
+<div *ngIf="indiceConductores!==0" class="b-b">
+  <br><br>
   <div class="row">
     <div class="col-sm-12">
       <h2>Conductor</h2>
     </div>
 
-    <div class="col-sm-3"  *ngFor="let conductor of conductores">
+    <div class="col-sm-3  b-r"  *ngFor="let conductor of conductores">
       <app-conductor
         [nombre]="conductor.nombre+conductor.apellido"
         [campeonActual]="conductor.campeonActual"
@@ -64,17 +65,17 @@
       <app-boton nombreBoton="Siguientes"></app-boton>
     </div>
   </div>
-
+  <br>
 </div>
 
 <div *ngIf="indiceAutos!==0">
-  <br><br><br>
+  <br><br>
   <div class="row">
     <div class="col-sm-12">
       <h2>Auto</h2>
     </div>
 
-    <div class="col-sm-3"  *ngFor="let auto of autos">
+    <div class="col-sm-3  b-r"  *ngFor="let auto of autos">
       <app-auto
         [anio]="auto.anio"
         [chasis]="auto.chasis"
@@ -100,5 +101,5 @@
       <app-boton nombreBoton="Siguientes"></app-boton>
     </div>
   </div>
-
+  <br><br>
 </div>

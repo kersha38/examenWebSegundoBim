@@ -32,22 +32,20 @@ export class PeticionService {
     async aceptarPeticion(idPeticion){
         const peticion=await this.obtener(idPeticion);
 
-        console.log("peticion", peticion);
         const solicitado= peticion.autoSolicitado;
         const ofrecio=peticion.autoOfrecido;
-
-        console.log("envio: ", solicitado,ofrecio);
 
         const cambio=this.autoService.cambiarAutos(solicitado,ofrecio);
 
         const peticiones= await  this.peticionRepository.find();
-        peticiones.forEach((p)=>{
-            if(p.autoSolicitado==solicitado){
+        peticiones.forEach((p:any)=>{
+
+            if(p.id==peticion.id){
                 this.peticionRepository.remove(p);
             }
                 });
 
-        return cambio;
+        return {mensaje:"correcto"};
     }
 
     async rechazarPeticion(idPeticion){

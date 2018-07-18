@@ -16,44 +16,6 @@ export class PeticionComponent implements OnInit {
   autoOfrecido;
   usuarioSolicita;
   usuarioOfrece;
-  @Input()
-  nick:string;
-
-  @Input()
-  nombreModeloSolicitado:string;
-
-  @Input()
-  nombreMarcaSolicitado:string;
-
-  @Input()
-  anioSolicitado:string;
-
-  @Input()
-  colorUnoSolicitado:string;
-
-  @Input()
-  colorDosSolicitado:string;
-
-  @Input()
-  chasisSolicitado:string;
-
-  @Input()
-  nombreModeloOfrecido:string;
-
-  @Input()
-  nombreMarcaOfrecido:string;
-
-  @Input()
-  anioOfrecido:string;
-
-  @Input()
-  colorUnoOfrecido:string;
-
-  @Input()
-  colorDosOfrecido:string;
-
-  @Input()
-  chasisOfrecido:string;
 
   constructor(private _httpClient:HttpClient) { }
 
