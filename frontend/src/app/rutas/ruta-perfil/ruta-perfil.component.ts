@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 
@@ -7,7 +7,7 @@ import {ActivatedRoute} from "@angular/router";
   templateUrl: './ruta-perfil.component.html',
   styleUrls: ['./ruta-perfil.component.css']
 })
-export class RutaPerfilComponent implements OnInit {
+export class RutaPerfilComponent implements OnInit, DoCheck {
 
   identificador:string="0";
   peticiones=[];
@@ -17,6 +17,11 @@ export class RutaPerfilComponent implements OnInit {
 
   constructor(private _httpClient:HttpClient,
               private _activateRoute:ActivatedRoute) { }
+
+  ngDoCheck(){
+    console.log("holi");
+
+  }
 
   ngOnInit() {
 

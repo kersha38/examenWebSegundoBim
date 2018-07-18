@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="peticion!==undefined">
   <div class="col-sm-5">
     <br><br><br>
     <app-boton nombreBoton="aceptar"
@@ -7,6 +7,7 @@
     <br>
     <app-boton nombreBoton="rechazar"
     (darClick)="rechazarPeticion(identificador)"
+               classe="btn btn-danger"
     ></app-boton>
     <br>
     <h3>Item de Petición</h3>

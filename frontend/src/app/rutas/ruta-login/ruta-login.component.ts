@@ -15,6 +15,7 @@ export class RutaLoginComponent implements OnInit {
   ngOnInit() {
   }
 
+
   password;
   nick;
   url="http://192.168.1.1:3000/Autorizacion/iniciarSesion";

@@ -30,7 +30,7 @@ export class UsuarioService {
             return false;
     }
     async obtenerUsuario(idUsuario){
-        return await this.usuarioRepository.findOne(idUsuario);
+        return await this.usuarioRepository.findOne(idUsuario,{relations:["conductores"]});
     }
 
     crearUsuario(usuarionick, password){

@@ -11,6 +11,9 @@ export class BotonComponent implements OnInit {
   nombreBoton:string;
   constructor() { }
 
+  @Input()
+  classe:string="btn btn-info";
+
   @Output()
   darClick = new EventEmitter();
 
