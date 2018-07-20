@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 
@@ -7,27 +7,37 @@ import {ActivatedRoute, Router} from "@angular/router";
   templateUrl: './ruta-peticion.component.html',
   styleUrls: ['./ruta-peticion.component.css']
 })
-export class RutaPeticionComponent implements OnInit {
+export class RutaPeticionComponent implements OnInit,DoCheck {
 
   constructor(private _httpClient:HttpClient,
               private _activatedRoute:ActivatedRoute,
               private _roter:Router) { }
 
+  idUsuarioLogead=0;
   identificador;
   usuario;
+  rangoAutos=4;
   botonAuto="Pedir Transferencia";
   botonCargar="Cargar más";
   autos=[];
-  autosMostrados="autos - 8";
+  autosMostrados="autos - 4";
+
+  cargarAutos(){
+    if(this.rangoAutos<this.autos.length)
+    this.rangoAutos+=4;
+
+    this.autosMostrados="autos - "+this.rangoAutos;
+  }
 
   pedirAuto(identificador){
-    const url=['/home',1,'seleccion',identificador];
+    const url=['/home',this.idUsuarioLogead,'seleccion',identificador];
     this._roter.navigate(url);
   }
 
   ngOnInit() {
-    const parametrosRuta$=this._activatedRoute.params;
+    this._activatedRoute.parent.params.subscribe((data)=>this.idUsuarioLogead=data['idUsuario']);
 
+    const parametrosRuta$=this._activatedRoute.params;
     parametrosRuta$.subscribe((parametros)=>{
       this.identificador=parametros['identificadorB'];
 
@@ -45,5 +55,6 @@ export class RutaPeticionComponent implements OnInit {
       });
     });
   }
-
+  ngDoCheck(){
+  }
 }

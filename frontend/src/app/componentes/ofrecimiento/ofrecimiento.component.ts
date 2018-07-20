@@ -1,12 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, DoCheck, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {E} from "@angular/core/src/render3";
 
 @Component({
   selector: 'app-ofrecimiento',
   templateUrl: './ofrecimiento.component.html',
   styleUrls: ['./ofrecimiento.component.css']
 })
-export class OfrecimientoComponent implements OnInit {
+export class OfrecimientoComponent implements OnInit,DoCheck {
 
   constructor(private _httpClient:HttpClient) { }
 
@@ -34,6 +35,10 @@ export class OfrecimientoComponent implements OnInit {
         this.usuarioSolicita=peticion.usuarioSolicita;
         this.usuarioOfrece=peticion.usuarioOfrece;
       });
+  }
+
+  ngDoCheck(){
+    console.log("refrescopeticion");
   }
 
   aceptarPeticion(id){

@@ -19,42 +19,38 @@ export class RutaPerfilComponent implements OnInit, DoCheck {
               private _activateRoute:ActivatedRoute) { }
 
   ngDoCheck(){
-    console.log("holi");
-
   }
 
   ngOnInit() {
 
-    this.parametrosRuta$.subscribe(
-      (pametros:any)=> {
-        this.identificador=pametros['identificadorA'];
+    const recuperarIdUsuario= this._activateRoute.parent.params;
+    recuperarIdUsuario.subscribe((parametros)=>{
+      this.identificador=parametros['idUsuario'];
 
-        const obtenerOfrecimientos=this._httpClient.post(
-          "http://localhost:3000/Usuario/ofrecimientos",
-          {identificador:this.identificador});
+      const obtenerOfrecimientos=this._httpClient.post(
+        "http://localhost:3000/Usuario/ofrecimientos",
+        {identificador:this.identificador});
 
-        obtenerOfrecimientos.subscribe((ofrecimientos:any)=>{this.ofrecimientos=ofrecimientos;
-            console.log("identificador",this.identificador);
-            console.log("ofreci",this.ofrecimientos);},
-          (error)=>console.log(error));
+      obtenerOfrecimientos.subscribe((ofrecimientos:any)=>{this.ofrecimientos=ofrecimientos;
+          console.log("identificador",this.identificador);
+          console.log("ofreci",this.ofrecimientos);},
+        (error)=>console.log(error));
 
-        const obtenerPeticiones=this._httpClient.post(
-          "http://localhost:3000/Usuario/solicitudes",
-          {identificador:this.identificador});
+      const obtenerPeticiones=this._httpClient.post(
+        "http://localhost:3000/Usuario/solicitudes",
+        {identificador:this.identificador});
 
-        obtenerPeticiones.subscribe((peticiones:any)=> { this.peticiones=peticiones;
-            console.log("identificador",this.identificador);
-            console.log("peti",this.peticiones);},
-          (error)=>console.log(error));
+      obtenerPeticiones.subscribe((peticiones:any)=> { this.peticiones=peticiones;
+          console.log("identificador",this.identificador);
+          console.log("peti",this.peticiones);},
+        (error)=>console.log(error));
 
-        const obtenerUsuario$ =
-          this._httpClient.post("http://localhost:3000/Usuario/obtener",
-            {idUsuario:this.identificador});
+      const obtenerUsuario$ =
+        this._httpClient.post("http://localhost:3000/Usuario/obtener",
+          {idUsuario:this.identificador});
 
-        obtenerUsuario$.subscribe((usuario:any)=>this.nombreUsuario=usuario.nick);
+      obtenerUsuario$.subscribe((usuario:any)=>this.nombreUsuario=usuario.nick);
 
-      }
-    );
+    });
   }
-
 }

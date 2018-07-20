@@ -14,7 +14,7 @@ export const ARREGLO_RUTAS: Routes = [
     path:"home/:idUsuario",
     children:[
       {component:RutaPerfilComponent,
-        path:"perfil/:identificadorA",
+        path:"perfil",
       },
       {component:RutaPeticionComponent,
         path:"peticion/:identificadorB",

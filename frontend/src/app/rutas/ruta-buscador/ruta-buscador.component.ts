@@ -1,5 +1,5 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 
 @Component({
@@ -10,7 +10,8 @@ import {HttpClient} from "@angular/common/http";
 export class RutaBuscadorComponent implements OnInit,DoCheck {
 
   constructor(private _httpClient: HttpClient,
-              private _router:Router,) {}
+              private _router:Router,
+              private _activatedRoute:ActivatedRoute) {}
 
   palabraBusqueda;
   buscarResultados(formulario){
@@ -45,21 +46,19 @@ export class RutaBuscadorComponent implements OnInit,DoCheck {
       });
   }
 
+  idUsuario=1;
   todosUsuarios=[];
   botonUsuario="Visitar";
   indiceUsuarios=0;
-  //nuevoIndUsuarios=-1;
 
-
-  visitarPerfil(idUsuario,idVisitante){
-    const url=['/home',idUsuario,'peticion',idVisitante];
+  visitarPerfil(idVisitante){
+    const url=['/home',this.idUsuario,'peticion',idVisitante];
     this._router.navigate(url);
   }
 
-  solicitarAuto(idUsuario,idAuto){
-    const url=['/home',idUsuario,'seleccion',idAuto];
+  solicitarAuto(idAuto){
+    const url=['/home',this.idUsuario,'seleccion',idAuto];
     this._router.navigate(url);
-
   }
 
   todosConductores=[];
@@ -72,6 +71,9 @@ export class RutaBuscadorComponent implements OnInit,DoCheck {
 
 
   ngOnInit() {
+    this._activatedRoute
+      .parent.params
+      .subscribe((data:any)=>this.idUsuario=data['idUsuario']);
   }
 
   ngDoCheck(){
@@ -113,7 +115,8 @@ export class RutaBuscadorComponent implements OnInit,DoCheck {
     if(this.indiceConductores>0){
       this.indiceConductores--;
     }
-  }mostrarMasAutos(){
+  }
+  mostrarMasAutos(){
     if(this.indiceAutos < this.todosAutos.length-1){
       this.indiceAutos++;
     }
@@ -124,5 +127,4 @@ export class RutaBuscadorComponent implements OnInit,DoCheck {
       this.indiceAutos--;
     }
   }
-
 }

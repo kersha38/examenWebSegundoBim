@@ -20,13 +20,12 @@ export class RutaHomeComponent implements OnInit {
   nombreUsuario="asadas";
 
   verPerfil(id){
-    const url=['home',this.idUsuario,'perfil',this.idUsuario];
+    const url=['home',this.idUsuario,'perfil'];
     this._router.navigate(url);
   }
 
 
   ngOnInit() {
-
     this.parametrosRuta$
       .subscribe(
         (respuestaOk) => {

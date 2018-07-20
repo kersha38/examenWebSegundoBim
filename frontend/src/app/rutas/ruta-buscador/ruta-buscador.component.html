@@ -30,7 +30,7 @@
         *ngIf="indiceUsuarios==ind">
       </app-usuario>
       <app-boton [nombreBoton]="botonUsuario"
-                 (darClick)="visitarPerfil(elemento.id,elemento.id)"
+                 (darClick)="visitarPerfil(elemento.id)"
                  *ngIf="indiceUsuarios==ind">
       </app-boton>
     </div>
@@ -106,7 +106,7 @@
         *ngIf="indiceAutos==ind">
       </app-auto>
       <app-boton [nombreBoton]="botonAuto"
-                 (darClick)="solicitarAuto(auto.id,auto.id)"
+                 (darClick)="solicitarAuto(auto.id)"
                  *ngIf="indiceAutos==ind">
       </app-boton>
     </div>
