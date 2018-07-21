@@ -7,22 +7,18 @@ import {ActivatedRoute} from "@angular/router";
   templateUrl: './ruta-perfil.component.html',
   styleUrls: ['./ruta-perfil.component.css']
 })
-export class RutaPerfilComponent implements OnInit, DoCheck {
+export class RutaPerfilComponent implements OnInit{
 
   identificador:string="0";
   peticiones=[];
   ofrecimientos=[];
-  parametrosRuta$ = this._activateRoute.params;
+  //parametrosRuta$ = this._activateRoute.params;
   nombreUsuario;
 
   constructor(private _httpClient:HttpClient,
               private _activateRoute:ActivatedRoute) { }
 
-  ngDoCheck(){
-  }
-
   ngOnInit() {
-
     const recuperarIdUsuario= this._activateRoute.parent.params;
     recuperarIdUsuario.subscribe((parametros)=>{
       this.identificador=parametros['idUsuario'];

@@ -7,7 +7,7 @@ import {E} from "@angular/core/src/render3";
   templateUrl: './ofrecimiento.component.html',
   styleUrls: ['./ofrecimiento.component.css']
 })
-export class OfrecimientoComponent implements OnInit,DoCheck {
+export class OfrecimientoComponent implements OnInit {
 
   constructor(private _httpClient:HttpClient) { }
 
@@ -22,6 +22,31 @@ export class OfrecimientoComponent implements OnInit,DoCheck {
 
 
   ngOnInit() {
+    this.consultar();
+  }
+
+
+  aceptarPeticion(id){
+    const aceptarPeticion$= this._httpClient.post("http://localhost:3000/Peticion/aceptar",
+      {identificador:id});
+
+    aceptarPeticion$.subscribe(()=>{
+      console.log("peticion aceptada");
+      this.consultar();
+    });
+  }
+
+  rechazarPeticion(id){
+    const rechazarPeticion$= this._httpClient.post("http://localhost:3000/Peticion/rechazar",
+      {identificador:id});
+
+    rechazarPeticion$.subscribe(()=>{
+      console.log("peticion rechazada");
+      this.consultar();
+    });
+  }
+
+  consultar(){
     const cargarPeticion$=this._httpClient.post(
       'http://localhost:3000/Peticion/obtener',
       {identificador:this.identificador}
@@ -35,28 +60,5 @@ export class OfrecimientoComponent implements OnInit,DoCheck {
         this.usuarioSolicita=peticion.usuarioSolicita;
         this.usuarioOfrece=peticion.usuarioOfrece;
       });
-  }
-
-  ngDoCheck(){
-    console.log("refrescopeticion");
-  }
-
-  aceptarPeticion(id){
-    const aceptarPeticion$= this._httpClient.post("http://localhost:3000/Peticion/aceptar",
-      {identificador:id});
-
-    aceptarPeticion$.subscribe(()=>{
-      console.log("peticion aceptada");
-    });
-  }
-
-  rechazarPeticion(id){
-    const rechazarPeticion$= this._httpClient.post("http://localhost:3000/Peticion/rechazar",
-      {identificador:id});
-
-    rechazarPeticion$.subscribe(()=>{
-      console.log("peticion rechazada");
-    });
-
   }
 }

@@ -28,8 +28,14 @@ export class RutaSeleccionComponent implements OnInit {
     this.autosMostrados="autos - "+this.rangoAutos;
   }
 
-  realizarTransferencia(idAutoSolicitado){
-    console.log("transferencia realizada");
+  realizarTransferencia(idAutoOfrecido){
+    const crearTransferencia = this._httpClient.post("http://localhost:3000/Peticion/crear",
+      {idAutoOfrecido:idAutoOfrecido,
+        idAutoSolicidado:this.idAutoPedido,
+        idPoseedor:this.usuario.conductores[0].id,
+        idOfrece:this.identificador});
+    crearTransferencia.subscribe((resultadoOk)=>console.log(resultadoOk));
+    console.log("transferencia creada");
   }
 
   ngOnInit() {

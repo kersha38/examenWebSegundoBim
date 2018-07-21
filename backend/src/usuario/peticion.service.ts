@@ -22,7 +22,7 @@ export class PeticionService {
 
         this.peticionRepository.save(peticion);
 
-        return "peticion creada";
+        return {mensaje:"peticion creada"};
     }
     async obtener(idPeticion){
         return await this.peticionRepository.findOne(idPeticion,
