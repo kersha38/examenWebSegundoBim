@@ -3,11 +3,15 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {Usuario} from "./usuario.entity";
 import {Injectable} from "@nestjs/common";
 import {PeticionEntity} from "./peticion.entity";
+import {AutoService} from "../auto/auto.service";
+import {ConductorService} from "../conductor/conductor.service";
 
 @Injectable()
 export class UsuarioService {
     constructor(@InjectRepository(Usuario)
-                private readonly usuarioRepository: Repository<Usuario>,)
+                private readonly usuarioRepository: Repository<Usuario>,
+                private _autoService:AutoService,
+                private _condcutorService:ConductorService)
     {}
 
     async obtener(identificador){
@@ -71,6 +75,13 @@ export class UsuarioService {
             .getMany();
 
         return usuarios;
+    }
+
+    async  obtenerPorAuto(idAuto){
+        const auto:any= await this._autoService.obtenerAuto(idAuto);
+        const conductor:any=await this._condcutorService.obtenerConductor(auto.conductor.id);
+
+        return {idUsuario:conductor.usuario.id};
     }
 
 }

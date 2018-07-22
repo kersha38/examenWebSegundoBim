@@ -15,6 +15,9 @@ export class PeticionService {
 
     async crearPeticion(idAutoOfrecido,idAutoSolicitado,idPoseedor,idOfrece){
         const peticion= new PeticionEntity();
+        console.log("ASoli",idAutoSolicitado);
+        console.log("AutoOfre",idAutoOfrecido);
+
         peticion.autoSolicitado=await this.autoService.obtenerAuto(idAutoOfrecido);
         peticion.autoOfrecido= await  this.autoService.obtenerAuto(idAutoSolicitado);
         peticion.usuarioOfrece= await this.ususarioServicio.obtener(idOfrece);
@@ -52,7 +55,5 @@ export class PeticionService {
         const peticion=await this.peticionRepository.findOne(idPeticion);
 
         return await this.peticionRepository.remove(peticion);
-
-
     }
 }

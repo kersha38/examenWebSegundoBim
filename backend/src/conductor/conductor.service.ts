@@ -44,7 +44,7 @@ export class ConductorService {
     }
 
     async obtenerConductor(indice:number):Promise<Conductor>{
-        return  await this.conductorRepository.findOne(indice);
+        return  await this.conductorRepository.findOne(indice,{relations:["usuario"]});
 
     }
 

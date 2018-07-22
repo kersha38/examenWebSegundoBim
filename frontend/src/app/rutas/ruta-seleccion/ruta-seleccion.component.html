@@ -9,25 +9,37 @@
 </div>
 <br><br>
 
-<div class="row" *ngIf="usuario!==undefined">
+<div class="row" *ngIf="usuario!==null">
   <div class="col-sm-1"></div>
   <div class="col-sm-2">
     <h3>Usuario</h3>
     <app-usuario
       [nick]="usuario.nick"></app-usuario>
   </div>
-  <div class="col-sm-1"></div>
-  <div class="col-sm-4">
-    <h3>Conductor</h3>
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4" *ngIf="autoPedido!==null&&autoPedido!==undefined">
+    <h3>Item peticion</h3>
     <br>
-    <app-conductor
-      [nombre]="usuario.conductores[0].nombre"
-      [campeonActual]="usuario.conductores[0].campeonActual"
-      [numeroMedallas]="usuario.conductores[0].numeroMedallas"
-    ></app-conductor>
+    <app-auto
+    [anio]="autoPedido.anio"
+    [colorDos]="autoPedido.colorDos"
+    [colorUno]="autoPedido.colorUno"
+    [chasis]="autoPedido.chasis"
+    [nombreMarca]="autoPedido.nombreMarca"
+    [nombreModelo]="autoPedido.nombreModelo"
+    >
+    </app-auto>
   </div>
 
 <br>
+</div>
+<div class="row">
+  <div
+    class="alert alert-warning"
+    role="alert"
+    *ngIf="solicitadorIgualPoseedor"
+  ><p>No puedes intercambiar para ti mismo</p>
+  </div>
 </div>
 
 <div class="row">
@@ -51,6 +63,7 @@
         (darClick)="realizarTransferencia(auto.id)"
         classe="btn btn-outline-info"
       ></app-boton>
+
       <br>
     </div>
 

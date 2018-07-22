@@ -37,4 +37,9 @@ export class UsuarioController {
     async obtener(@Body('idUsuario')idUsuario){
         return await  this.usuarioService.obtenerUsuario(idUsuario);
     }
+
+    @Post('obtenerPorAuto')
+    async obtnerPorAuto(@Body('idAuto')idAuto){
+        return await this.usuarioService.obtenerPorAuto(idAuto);
+    }
 }

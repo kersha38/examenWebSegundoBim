@@ -21,14 +21,14 @@
 <div class="row b-b" *ngFor="let peticion of ofrecimientos">
 
   <div class="col-sm-3"></div>
-  <div class="col-sm-6" >
+  <div class="col-sm-6" *ngIf="peticion!==null">
     <app-peticion [identificador]="peticion.id"></app-peticion>
   </div>
 </div>
 
 <div class="row b-b" *ngFor="let ofrecimiento of peticiones">
   <div class="col-sm-3"></div>
-  <div class="col-sm-6" >
+  <div class="col-sm-6" *ngIf="ofrecimiento!==null">
     <app-ofrecimiento
       [identificador]="ofrecimiento.id"
     ></app-ofrecimiento>

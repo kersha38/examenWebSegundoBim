@@ -32,6 +32,8 @@ export class PeticionComponent implements OnInit {
         this.autoOfrecido=peticion.autoOfrecido;
         this.usuarioSolicita=peticion.usuarioSolicita;
         this.usuarioOfrece=peticion.usuarioOfrece;
+        console.log("soli",this.autoSolicitado);
+        console.log("ofre",this.autoOfrecido);
       });
   }
 
