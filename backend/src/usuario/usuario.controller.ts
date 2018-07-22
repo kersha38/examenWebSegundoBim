@@ -1,4 +1,4 @@
-import {Body,  Controller, Get, Post, Query} from "@nestjs/common";
+import {Body, Controller, Get, Post, Query} from "@nestjs/common";
 import {UsuarioService} from "./usuario.service";
 
 @Controller('Usuario')
@@ -18,23 +18,28 @@ export class UsuarioController {
             .crearUsuario(bodyParamas.usuario, bodyParamas.password);
     }
 
-    @Get('buscar')
-    async buscarUsuario(@Query('palabraBusqueda')palabraBusqueda){
+    @Post('buscar')
+    async buscarUsuario(@Body('palabraBusqueda')palabraBusqueda){
         return await this.usuarioService.buscarUsuarios(palabraBusqueda);
     }
 
-    @Get('solicitudes')
-    async solicitudes(@Query('identificador')identificador){
+    @Post('solicitudes')
+    async solicitudes(@Body('identificador')identificador){
         return await  this.usuarioService.obtenerSolicitudes(identificador)
     }
 
-    @Get('ofrecimientos')
-    async ofrecmientos(@Query('identificador')identificador){
+    @Post('ofrecimientos')
+    async ofrecmientos(@Body('identificador')identificador){
         return await  this.usuarioService.obtenerOfrecimientos(identificador)
     }
 
     @Post('obtener')
     async obtener(@Body('idUsuario')idUsuario){
         return await  this.usuarioService.obtenerUsuario(idUsuario);
+    }
+
+    @Post('obtenerPorAuto')
+    async obtnerPorAuto(@Body('idAuto')idAuto){
+        return await this.usuarioService.obtenerPorAuto(idAuto);
     }
 }

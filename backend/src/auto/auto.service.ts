@@ -53,15 +53,10 @@ export class AutoService{
 
         const conductorOfrecido=autoOfrecido.conductor;
         const conductorSolicitado=autoSolicitidado.conductor;
-        console.log("autoofreceido: ",autoOfrecido);
-        console.log("conductorfreceido: ",conductorOfrecido);
-        console.log("autooSol: ",autoSolicitidado);
-        console.log("ConductSoli: ",conductorSolicitado);
 
         autoOfrecido.conductor=conductorSolicitado;
         autoSolicitidado.conductor=conductorOfrecido;
 
-//        console.log("autoofreceidoDEspues: ",autoOfrecido);
 
         this.autoRepository.save(autoSolicitidado);
         this.autoRepository.save(autoOfrecido);

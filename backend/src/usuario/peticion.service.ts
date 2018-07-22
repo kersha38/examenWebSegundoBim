@@ -15,6 +15,9 @@ export class PeticionService {
 
     async crearPeticion(idAutoOfrecido,idAutoSolicitado,idPoseedor,idOfrece){
         const peticion= new PeticionEntity();
+        console.log("ASoli",idAutoSolicitado);
+        console.log("AutoOfre",idAutoOfrecido);
+
         peticion.autoSolicitado=await this.autoService.obtenerAuto(idAutoOfrecido);
         peticion.autoOfrecido= await  this.autoService.obtenerAuto(idAutoSolicitado);
         peticion.usuarioOfrece= await this.ususarioServicio.obtener(idOfrece);
@@ -22,39 +25,35 @@ export class PeticionService {
 
         this.peticionRepository.save(peticion);
 
-        return "peticion creada";
+        return {mensaje:"peticion creada"};
     }
     async obtener(idPeticion){
         return await this.peticionRepository.findOne(idPeticion,
-            {relations:["autoSolicitado","autoOfrecido"]});
+            {relations:["autoSolicitado","autoOfrecido","usuarioOfrece","usuarioSolicita"]});
     }
 
     async aceptarPeticion(idPeticion){
         const peticion=await this.obtener(idPeticion);
 
-        console.log("peticion", peticion);
         const solicitado= peticion.autoSolicitado;
         const ofrecio=peticion.autoOfrecido;
-
-        console.log("envio: ", solicitado,ofrecio);
 
         const cambio=this.autoService.cambiarAutos(solicitado,ofrecio);
 
         const peticiones= await  this.peticionRepository.find();
-        peticiones.forEach((p)=>{
-            if(p.autoSolicitado==solicitado){
+        peticiones.forEach((p:any)=>{
+
+            if(p.id==peticion.id){
                 this.peticionRepository.remove(p);
             }
                 });
 
-        return cambio;
+        return {mensaje:"correcto"};
     }
 
     async rechazarPeticion(idPeticion){
         const peticion=await this.peticionRepository.findOne(idPeticion);
 
         return await this.peticionRepository.remove(peticion);
-
-
     }
 }
